@@ -1,5 +1,7 @@
 # micro-quant-analyzer
 
+> **Data Disclaimer:** All market data used in this project is fetched from publicly available sources (yfinance) strictly for educational and research purposes. No real trades are executed. No data is stored or shared.
+
 A quantitative trading research system built on Indian equity markets (NSE). Covers three core areas of high-frequency trading research: exchange simulation, market microstructure analysis, and algorithmic strategy backtesting.
 
 Live Demo: [micro-quant-analyzer.vercel.app](#)
