@@ -21,7 +21,7 @@ from data.fetch_data import fetch_stock_data
 from microstructure.analysis import run_microstructure
 from strategy.backtester import run_backtest
 from math_models.models import run_all_models
-from reports.charts import generate_all_charts
+from python.reports.charts import generate_all_charts
 from matching_engine_sim import run_simulator
 
 app = FastAPI(title="Micro Quant Analyzer API")
