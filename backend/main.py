@@ -1,22 +1,28 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
 import pandas as pd
 import numpy as np
 import sys
 import os
 import base64
-import io
 import matplotlib
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from python.data.fetch_data import fetch_stock_data
-from python.microstructure.analysis import run_microstructure
-from python.strategy.backtester import run_backtest
-from python.math_models.models import run_all_models
-from python.reports.charts import generate_all_charts
+# Fix all import paths
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PYTHON_DIR = os.path.join(BASE_DIR, 'python')
+CPP_DIR = os.path.join(BASE_DIR, 'cpp')
+
+sys.path.insert(0, BASE_DIR)
+sys.path.insert(0, PYTHON_DIR)
+sys.path.insert(0, CPP_DIR)
+
+from data.fetch_data import fetch_stock_data
+from microstructure.analysis import run_microstructure
+from strategy.backtester import run_backtest
+from math_models.models import run_all_models
+from reports.charts import generate_all_charts
+from matching_engine_sim import run_simulator
 
 app = FastAPI(title="Micro Quant Analyzer API")
 
@@ -54,7 +60,6 @@ def analyze(ticker: str):
     ticker = ticker.upper() + ".NS"
     try:
         df, metrics, ou, adf, acf_r, charts = load_and_process(ticker)
-
         return {
             "ticker": ticker,
             "metrics": {
@@ -90,10 +95,9 @@ def analyze(ticker: str):
     except Exception as e:
         return {"error": str(e)}
 
+
 @app.get("/api/orderbook")
 def get_orderbook():
-    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from cpp.matching_engine_sim import run_simulator
     import io
     from contextlib import redirect_stdout
 
