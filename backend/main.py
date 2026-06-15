@@ -27,6 +27,7 @@ app = FastAPI(title="Micro Quant Analyzer API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
