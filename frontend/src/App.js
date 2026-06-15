@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API = "https://micro-quant-analyzer.onrender.com";
+const API = "https://micro-quant-analyzer-api.onrender.com";
 
 const STOCKS = ["RELIANCE", "TCS", "INFY", "HDFCBANK", "ICICIBANK"];
 
